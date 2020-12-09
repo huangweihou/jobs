@@ -7,19 +7,19 @@ var connection = mysql.createPool(config);
 function getJobs(req, res) {
   var jobTitle = req.query.jobTitle;
   var query = `
-    SELECT *
+    SELECT job_title AS JobTitle, job_type AS JobType, location AS Location, salary AS Salary, job_description AS Description
     FROM Monster m
     WHERE JOB_TITLE = '${jobTitle}';
   `;
-  connection.query(query, function(err, jobTitle, fields){
+  connection.query(query, function (err, jobTitle, fields) {
     if (err) console.log(err);
-    else{
+    else {
       console.log(jobTitle);
       res.json(jobTitle);
     }
   });
-};
-  
+}
+
 //   var location = req.query.location;
 //   var jobType = req.query.jobType;
 //   var salaryMin = req.query.salaryMin;
