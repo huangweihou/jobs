@@ -6,11 +6,25 @@ var connection = mysql.createPool(config);
 
 function getJobs(req, res) {
   var jobTitle = req.query.jobTitle;
+  var query = '
+    SELECT *
+    FROM DICE d 
+    WHERE JOB_TITLE = '${jobTitle}';
+  ';
+  connection.query(query, function(err, jobTitle, fields){
+    if (err) console.log(err);
+    else{
+      console.log(jobTitle);
+      res.json(jobTitle);
+    }
+  });
+};
+  
   var location = req.query.location;
   var jobType = req.query.jobType;
   var salaryMin = req.query.salaryMin;
   var salaryMax = req.query.salaryMax;
-  console.log(jobTitle);
+  //console.log(jobTitle);
   console.log(location);
   console.log(jobType);
   console.log(salaryMin);
