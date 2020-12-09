@@ -8,7 +8,7 @@ function getJobs(req, res) {
   var jobTitle = req.query.jobTitle;
   var query = `
     SELECT *
-    FROM DICE d 
+    FROM Monster m
     WHERE JOB_TITLE = '${jobTitle}';
   `;
   connection.query(query, function(err, jobTitle, fields){
