@@ -11,8 +11,8 @@ const Jobs = (props) => {
   const [jobTitle, setJobTitle] = useState("");
   const [location, setLocation] = useState("");
   const [jobType, setJobType] = useState([false, false, false]);
-  const [salaryMin, setSalaryMin] = useState();
-  const [salaryMax, setSalaryMax] = useState();
+  const [employer, setEmployer] = useState("");
+  const [skill, setSkill] = useState("");
 
   // const { JobsArr } = props;
   useEffect(() => {
@@ -37,10 +37,10 @@ const Jobs = (props) => {
         setLocation={setLocation}
         jobType={jobType}
         setJobType={setJobType}
-        salaryMin={salaryMin}
-        setSalaryMin={setSalaryMin}
-        salaryMax={salaryMax}
-        setSalaryMax={setSalaryMax}
+        employer={employer}
+        setEmployer={setEmployer}
+        skill={skill}
+        setSkill={setSkill}
       />
       <div className="job-container">
         <JobSideList

@@ -11,10 +11,10 @@ const FilterBox = (props) => {
     setLocation,
     jobType,
     setJobType,
-    salaryMin,
-    setSalaryMin,
-    salaryMax,
-    setSalaryMax,
+    employer,
+    setEmployer,
+    skill,
+    setSkill,
   } = props;
 
   const filterSearch = () => {
@@ -22,8 +22,8 @@ const FilterBox = (props) => {
     let jobTitleQuery = "";
     let locationQuery = "";
     let jobTypeQuery = "";
-    let salaryMinQuery = "";
-    let salaryMaxQuery = "";
+    let employerQuery = "";
+    let skillQuery = "";
     let baseUrl = fetchAllJobUrl + "?";
     if (jobTitle) {
       jobTitleQuery = `&jobTitle=${jobTitle}`;
@@ -42,11 +42,11 @@ const FilterBox = (props) => {
         jobTypeQuery += `&jobType="intern"`;
       }
     }
-    if (salaryMin) {
-      salaryMinQuery = `&salaryMin=${salaryMin}`;
+    if (employer) {
+      employerQuery = `&employer=${employer}`;
     }
-    if (salaryMax) {
-      salaryMaxQuery = `&salaryMax=${salaryMax}`;
+    if (skill) {
+      skillQuery = `&skill=${skill}`;
     }
 
     finalQuery =
@@ -54,8 +54,8 @@ const FilterBox = (props) => {
       jobTitleQuery +
       locationQuery +
       jobTypeQuery +
-      salaryMinQuery +
-      salaryMaxQuery;
+      employerQuery +
+      skillQuery;
 
     if (finalQuery.length > baseUrl.length) {
       finalQuery =
@@ -90,12 +90,12 @@ const FilterBox = (props) => {
   }, [jobType]);
 
   useEffect(() => {
-    console.log("min", salaryMin);
-  }, [salaryMin]);
+    console.log("min", employer);
+  }, [employer]);
 
   useEffect(() => {
-    console.log("max", salaryMax);
-  }, [salaryMax]);
+    console.log("max", skill);
+  }, [skill]);
 
   return (
     <div>
@@ -118,6 +118,25 @@ const FilterBox = (props) => {
             type="text"
             onChange={(e) => {
               setLocation(e.target.value);
+            }}
+          />
+        </div>
+
+        <div className="employer-input">
+          <div>Employer: </div>
+          <input
+            type="text"
+            onChange={(e) => {
+              setEmployer(e.target.value);
+            }}
+          />
+        </div>
+        <div className="skill-input">
+          <div>Skill: </div>
+          <input
+            type="text"
+            onChange={(e) => {
+              setSkill(e.target.value);
             }}
           />
         </div>
@@ -153,32 +172,6 @@ const FilterBox = (props) => {
             </div>
           </div>
         </div>
-        <div className="salary-input">
-          <div>Salary: </div>
-          <div className="salary-min-max-input">
-            <div className="salary-min-input">
-              min
-              <input
-                type="number"
-                min={0}
-                onChange={(e) => {
-                  setSalaryMin(e.target.value);
-                }}
-              />
-            </div>
-            <div className="salary-max-input">
-              max
-              <input
-                type="number"
-                min={0}
-                onChange={(e) => {
-                  setSalaryMax(e.target.value);
-                }}
-              />
-            </div>
-          </div>
-        </div>
-
         <div
           className="submit-button"
           onClick={() => {

@@ -7,7 +7,7 @@ var connection = mysql.createPool(config);
 function getJobs(req, res) {
   var jobTitle = req.query.jobTitle;
   var query = `
-    SELECT job_title AS JobTitle, job_type AS JobType, location AS Location, salary AS Salary, job_description AS Description
+    SELECT job_title AS JobTitle, job_type AS JobType, location AS Location, sector AS Skill, job_description AS Description
     FROM Monster m
     WHERE JOB_TITLE = '${jobTitle}';
   `;
