@@ -9,7 +9,7 @@ function getJobs(req, res) {
   var query = `
     SELECT job_title AS JobTitle, job_type AS JobType, location AS Location, sector AS Skill, job_description AS Description
     FROM Monster m
-    WHERE JOB_TITLE = '${jobTitle}';
+    WHERE JOB_TITLE LIKE '%${jobTitle}%';
   `;
   connection.query(query, function (err, jobTitle, fields) {
     if (err) console.log(err);
