@@ -54,4 +54,5 @@
 .submit-button {
   border: 1px solid black;
   height: 100%;
+  cursor: pointer;
 }

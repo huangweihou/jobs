@@ -179,7 +179,13 @@ const FilterBox = (props) => {
           </div>
         </div>
 
-        <div className="submit-button" onClick={() => filterFetch()}>
+        <div
+          className="submit-button"
+          onClick={() => {
+            filterFetch();
+            console.log("submitted");
+          }}
+        >
           Submit
         </div>
       </div>
