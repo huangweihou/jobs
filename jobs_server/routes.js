@@ -113,16 +113,34 @@ function getSkills(req, res) {
 // Get Popular Location from Selected Skill
 function getPopularLocations(req, res){
   var selected_skill = req.params.skill;
+  var selected_state = req.params.state;
+  console.log(selected_state);
+  console.log(selected_skill);
   var query = `
   SELECT Location AS location, COUNT(*) AS count
   FROM (SELECT LOCATION AS Location, sector AS Skill, JOB_DESCRIPTION AS Description FROM Dice 
     UNION ALL
       SELECT location AS Location, sector AS Skill, job_description AS Description FROM Monster) tables
-  WHERE Skill LIKE '%${selected_skill}%'
+  WHERE (Skill LIKE '%${selected_skill}%' OR Description LIKE '%${selected_skill}%')
   GROUP BY Location
   ORDER BY COUNT(*) DESC
   LIMIT 10;
   `;
+
+  if (selected_state != null && typeof selected_state === 'string'){
+    query = `
+  SELECT Location AS location, COUNT(*) AS count
+  FROM (SELECT LOCATION AS Location, sector AS Skill, JOB_DESCRIPTION AS Description FROM Dice 
+    UNION ALL
+      SELECT location AS Location, sector AS Skill, job_description AS Description FROM Monster) tables
+  WHERE (Skill LIKE '%${selected_skill}%' OR Description LIKE '%${selected_skill}%')
+  AND Location LIKE '%${selected_state}%'
+  GROUP BY Location
+  ORDER BY COUNT(*) DESC
+  LIMIT 10;
+  `;
+  }
+
   connection.query(query, function(err, rows, fields) {
     if (err) console.log(err);
     else {
