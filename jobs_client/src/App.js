@@ -5,7 +5,7 @@ import {
 	Switch
 } from 'react-router-dom';
 import Jobs from "./pages/job/Jobs";
-import Popular from "./pages/job/Popular";
+import Popular from "./pages/popular/Popular";
 
 const App = () => {
   return (

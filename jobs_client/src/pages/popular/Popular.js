@@ -1,5 +1,5 @@
 import React from 'react';
-import PageNavbar from './PageNavbar';
+import PageNavbar from '../PageNavbar';
 import PopularRow from './PopularRow';
 import './Popular.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -9,13 +9,15 @@ export default class Popular extends React.Component {
 		super(props);
 
 		this.state = {
-      		selectedSkill: "",
-			skills: [],
-			locations: []
+			  selectedSkill: "",
+			  selectedState: "",
+			  skills: [],
+			  locations: []
 		};
     
 		this.submitSkill = this.submitSkill.bind(this);
 		this.handleChange = this.handleChange.bind(this);
+		this.handleStateChange = this.handleStateChange.bind(this);
 	}
 
 	componentDidMount() {
@@ -45,9 +47,15 @@ export default class Popular extends React.Component {
 		});
 	}
 
+	handleStateChange(e) {
+		this.setState({
+			selectedState: e.target.value,
+		});
+	}
+
 	/* ---- Popular Location ---- */
 	submitSkill() {
-		fetch("http://localhost:8081/popular/" + this.state.selectedSkill, {
+		fetch("http://localhost:8081/popular/" + this.state.selectedSkill + "/" + this.state.selectedState, {
 			method: "GET", // The type of HTTP request.
 		  })
 			.then(res => res.json()) // Convert the response data to a JSON.
@@ -79,7 +87,13 @@ export default class Popular extends React.Component {
 			            	<option select value> --- select your skill --- </option>
 			            	{this.state.skills}
 			            </select>
-			            <button className="submit-btn" id="decadesSubmitBtn" onClick={this.submitSkill}>submit</button>
+			            {/* <button className="submit-btn" id="decadesSubmitBtn" onClick={this.submitSkill}>submit</button> */}
+						<p></p>
+						<div className="input-container">
+							Do You Have A Prefered State? 
+			    			<input type='text' placeholder="Enter State Abbreviation" value={this.state.selectedState} onChange={this.handleStateChange} id="movieName" className="movie-input"/>
+			    			<button id="decadesSubmitBtn" className="submit-btn" onClick={this.submitSkill}>submit</button>
+			    		</div>
 			          </div>
 			        </div>
 			      </div>
