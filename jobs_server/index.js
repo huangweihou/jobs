@@ -11,8 +11,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get("/jobs", routes.getJobs);
 app.get("/popular", routes.getSkills);
-app.get('/popular/:skill', routes.getPopularLocations);
-app.get('/popular/:skill/:state', routes.getPopularLocations);
+app.get("/popular/:skill", routes.getPopularLocations);
+app.get("/popular/:skill/:state", routes.getPopularLocations);
 
 app.listen(8081, () => {
   console.log(`Server listening on PORT 8081`);
