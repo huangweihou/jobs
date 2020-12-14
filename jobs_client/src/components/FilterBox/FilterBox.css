@@ -3,6 +3,7 @@
 }
 
 .job-title-input-box {
+  width: 600px;
   border-radius: 5px;
   font-size: 20px;
 }
@@ -60,7 +61,7 @@
 }
 
 .submit-button {
-  margin-left: 40px;
+  margin-left: 20px;
   padding: 10px;
   border: 1px solid black;
   height: 100%;

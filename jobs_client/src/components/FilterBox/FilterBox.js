@@ -104,7 +104,7 @@ const FilterBox = (props) => {
           <input
             className="job-title-input-box"
             type="text"
-            placeholder="Search Job Title"
+            placeholder="Search Job Title e.g: MySQL Database Administrator"
             onChange={(e) => {
               setJobTitle(e.target.value);
             }}

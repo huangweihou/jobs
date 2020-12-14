@@ -22,8 +22,10 @@ const Jobs = (props) => {
   }, []);
 
   const getAllJobData = async () => {
-    const allJobRes = await fetch(fetchAllJobUrl).then((res) => res.json());
-    //console.log("allJobRes", allJobRes);
+    const defaultUrl =
+      fetchAllJobUrl + "?jobTitle=MySQL Database Administrator";
+    const allJobRes = await fetch(defaultUrl).then((res) => res.json());
+    console.log("allJobRes", allJobRes);
 
     setAllJob(allJobRes);
   };
