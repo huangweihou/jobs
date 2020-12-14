@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import JobContent from "../../components/JobContent/JobContent";
 import JobSideList from "../../components/JobSideList/JobSideList";
+import JobNavbar from "./JobNavbar";
 import FilterBox from "../../components/FilterBox/FilterBox";
 import { fetchAllJobUrl } from "../../constants/constants";
 import "./Jobs.css";
@@ -29,6 +30,7 @@ const Jobs = (props) => {
 
   return (
     <div>
+      <JobNavbar active="bestgenres" />
       <FilterBox
         setAllJob={setAllJob}
         jobTitle={jobTitle}
