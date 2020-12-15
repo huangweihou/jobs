@@ -31,10 +31,10 @@ function getJobs(req, res) {
   AND Skill LIKE '%${skill}%';
   `;
 
-  if (jobType != null && typeof jobType === 'string') {
-    jobType = jobType.replace('"', '');
-    jobType = jobType.replace('"', '');
-    jobType = jobType.replace('-time', '');
+  if (jobType != null && typeof jobType === "string") {
+    jobType = jobType.replace('"', "");
+    jobType = jobType.replace('"', "");
+    jobType = jobType.replace("-time", "");
     query = `
     SELECT JobTitle, JobType, Location, Employer, Skill, Description
     FROM (SELECT JOB_TITLE As JobTitle, JOB_TYPE AS JobType, LOCATION AS Location, ORGANIZATION AS Employer, sector AS Skill, JOB_DESCRIPTION AS Description FROM Dice 
@@ -46,18 +46,16 @@ function getJobs(req, res) {
     AND JobType LIKE '%${jobType}%'
     AND Skill LIKE '%${skill}%';
     `;
-  }
-
-  else if (jobType != null && jobType.length == 2) {
+  } else if (jobType != null && jobType.length == 2) {
     var jobType1 = jobType[0];
-    jobType1 = jobType1.replace('"', '');
-    jobType1 = jobType1.replace('"', '');
-    jobType1 = jobType1.replace('-time', '');
-    
+    jobType1 = jobType1.replace('"', "");
+    jobType1 = jobType1.replace('"', "");
+    jobType1 = jobType1.replace("-time", "");
+
     var jobType2 = jobType[1];
-    jobType2 = jobType2.replace('"', '');
-    jobType2 = jobType2.replace('"', '');
-    jobType2 = jobType2.replace('-time', '');
+    jobType2 = jobType2.replace('"', "");
+    jobType2 = jobType2.replace('"', "");
+    jobType2 = jobType2.replace("-time", "");
 
     query = `
     SELECT JobTitle, JobType, Location, Employer, Skill, Description
@@ -81,8 +79,6 @@ function getJobs(req, res) {
   });
 }
 
-
-
 // Get all skills
 function getSkills(req, res) {
   var query = `
@@ -100,7 +96,7 @@ function getSkills(req, res) {
   SELECT skill AS skill FROM SKILLS WHERE skill<>'' AND skill<>' '
   `;
 
-  connection.query(query, function(err, rows, fields) {
+  connection.query(query, function (err, rows, fields) {
     if (err) console.log(err);
     else {
       // console.log(rows);
@@ -109,13 +105,16 @@ function getSkills(req, res) {
   });
 }
 
-
 // Get Popular Location from Selected Skill
-function getPopularLocations(req, res){
+function getPopularLocations(req, res) {
   var selected_skill = req.params.skill;
   var selected_state = req.params.state;
-  console.log(selected_state);
-  console.log(selected_skill);
+  //console.log(selected_state);
+  //console.log(selected_skill);
+  if ((selected_skill = "topskills")) {
+    getTopSkills(req, res);
+    return;
+  }
   var query = `
   SELECT Location AS location, COUNT(*) AS count
   FROM (SELECT LOCATION AS Location, sector AS Skill, JOB_DESCRIPTION AS Description FROM Dice 
@@ -127,7 +126,7 @@ function getPopularLocations(req, res){
   LIMIT 10;
   `;
 
-  if (selected_state != null && typeof selected_state === 'string'){
+  if (selected_state != null && typeof selected_state === "string") {
     query = `
   SELECT Location AS location, COUNT(*) AS count
   FROM (SELECT LOCATION AS Location, sector AS Skill, JOB_DESCRIPTION AS Description FROM Dice 
@@ -141,22 +140,21 @@ function getPopularLocations(req, res){
   `;
   }
 
-  connection.query(query, function(err, rows, fields) {
+  connection.query(query, function (err, rows, fields) {
     if (err) console.log(err);
     else {
       console.log(rows);
-      res.json(rows)
+      res.json(rows);
     }
   });
-};
-
+}
 
 // Get top skills related to input job title
 function getTopSkills(req, res) {
-  var title = req.perams.selectedTitle;
-  console.log(title)
+  var title = req.params.state;
+  console.log(title);
   var query = `
-  WITH SKILLS AS (SELECT count(*) AS count, 
+  WITH SKILLS AS (SELECT count(*) AS count,
   TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(Dice.sector, ',', numbers.n), ',', -1)) skill
   FROM
   (select 1 n union all
@@ -171,7 +169,7 @@ function getTopSkills(req, res) {
   SELECT skill AS skill FROM SKILLS WHERE skill<>''
   `;
 
-  connection.query(query, function(err, rows, fields) {
+  connection.query(query, function (err, rows, fields) {
     if (err) console.log(err);
     else {
       console.log(rows);
@@ -179,9 +177,6 @@ function getTopSkills(req, res) {
     }
   });
 }
-
-
-
 
 // The exported functions, which can be accessed in index.js.
 module.exports = {
