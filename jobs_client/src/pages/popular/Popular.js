@@ -11,13 +11,18 @@ export default class Popular extends React.Component {
 		this.state = {
 			  selectedSkill: "",
 			  selectedState: "",
+			  selectedTitle: "",
 			  skills: [],
-			  locations: []
+			  locations: [],
+			  topSkills: []
 		};
     
 		this.submitSkill = this.submitSkill.bind(this);
+		this.submitTopSkills = this.submitTopSkills.bind(this);
+
 		this.handleChange = this.handleChange.bind(this);
 		this.handleStateChange = this.handleStateChange.bind(this);
+		this.handleTitleChange = this.handleTitleChange.bind(this);
 	}
 
 	componentDidMount() {
@@ -53,6 +58,33 @@ export default class Popular extends React.Component {
 		});
 	}
 
+	handleTitleChange(e){
+		this.setState({
+			selectedTitle: e.target.value,
+		});
+	}
+
+	/* ---- Popular Skill By Job Title ---- */
+	submitTopSkills() {
+		fetch("http://localhost:8081/popular/topskills/" + this.state.selectedTitle, {
+			method: "GET", // The type of HTTP request.
+		  })
+			.then(res => res.json()) // Convert the response data to a JSON.
+			.then(topSkillsList => {
+				console.log("topskill")
+			  if (!topSkillsList) return;
+			  console.log(topSkillsList)
+			  let topSkillsDivs = topSkillsList.map((topSkillsObj, i) => 
+			  	<div key={i}>{topSkillsObj.skill}</div>
+			  );
+			  this.setState({
+				topSkills: topSkillsDivs,
+			  })
+			})
+		  .catch(err => console.log(err))	// Print the error if there is one.
+	}
+
+
 	/* ---- Popular Location ---- */
 	submitSkill() {
 		fetch("http://localhost:8081/popular/" + this.state.selectedSkill + "/" + this.state.selectedState, {
@@ -76,6 +108,30 @@ export default class Popular extends React.Component {
 		return (
 			<div className="BestGenres">
 				<PageNavbar active="bestgenres" />
+
+				<div className="container bestgenres-container">
+			      <div className="jumbotron">
+			        <div className="h5">TOP 10 SKILLS THAT YOU MAY NEED</div>
+
+			        <div className="years-container">
+						<div className="input-container">
+							Ｗhat Kind Of Job Are You Looking For? 
+			    			<input type='text' placeholder="Enter..." value={this.state.selectedTitle} onChange={this.handleTitleChange} id="jobName" className="movie-input"/>
+			    			<button id="jobSubmitBtn" className="submit-btn" onClick={this.submitTopSkills}>submit</button>
+							<div className="movie">
+								<p></p>
+								<p></p>
+								<p></p>
+			            <div className="header"><strong>Top 10 Skills For Job Related To: {this.state.selectedTitle}</strong></div>
+			          </div>
+			          <div>
+			            {this.state.topSkills}
+			          </div>
+			          </div>
+			        </div>
+			      </div>
+			    </div>
+
 
 				<div className="container bestgenres-container">
 			      <div className="jumbotron">
