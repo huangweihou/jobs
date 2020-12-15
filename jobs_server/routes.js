@@ -111,7 +111,7 @@ function getPopularLocations(req, res) {
   var selected_state = req.params.state;
   //console.log(selected_state);
   //console.log(selected_skill);
-  if ((selected_skill = "topskills")) {
+  if (selected_skill === "topskills") {
     getTopSkills(req, res);
     return;
   }
