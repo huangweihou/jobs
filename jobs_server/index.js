@@ -13,6 +13,7 @@ app.get("/jobs", routes.getJobs);
 app.get("/popular", routes.getSkills);
 app.get("/popular/:skill", routes.getPopularLocations);
 app.get("/popular/:skill/:state", routes.getPopularLocations);
+app.get("/popular/topskills/:selectedTitle", routes.getTopSkills);
 
 app.listen(8081, () => {
   console.log(`Server listening on PORT 8081`);

@@ -103,7 +103,7 @@ function getSkills(req, res) {
   connection.query(query, function(err, rows, fields) {
     if (err) console.log(err);
     else {
-      console.log(rows);
+      // console.log(rows);
       res.json(rows);
     }
   });
@@ -151,10 +151,42 @@ function getPopularLocations(req, res){
 };
 
 
+// Get top skills related to input job title
+function getTopSkills(req, res) {
+  var title = req.perams.selectedTitle;
+  console.log(title)
+  var query = `
+  WITH SKILLS AS (SELECT count(*) AS count, 
+  TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(Dice.sector, ',', numbers.n), ',', -1)) skill
+  FROM
+  (select 1 n union all
+   select 2 union all select 3 union all
+   select 4 union all select 5) numbers INNER JOIN Dice
+  ON CHAR_LENGTH(Dice.sector)
+     -CHAR_LENGTH(REPLACE(Dice.sector, ', ','')) >= numbers.n-1
+  WHERE Dice.JobTitle LIKE '%${title}%'
+  GROUP BY skill
+  ORDER BY count(*) desc
+  LIMIT 10)
+  SELECT skill AS skill FROM SKILLS WHERE skill<>''
+  `;
+
+  connection.query(query, function(err, rows, fields) {
+    if (err) console.log(err);
+    else {
+      console.log(rows);
+      res.json(rows);
+    }
+  });
+}
+
+
+
 
 // The exported functions, which can be accessed in index.js.
 module.exports = {
   getJobs: getJobs,
   getSkills: getSkills,
   getPopularLocations: getPopularLocations,
+  getTopSkills: getTopSkills,
 };
