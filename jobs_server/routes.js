@@ -162,7 +162,7 @@ function getTopSkills(req, res) {
    select 4 union all select 5) numbers INNER JOIN Dice
   ON CHAR_LENGTH(Dice.sector)
      -CHAR_LENGTH(REPLACE(Dice.sector, ', ','')) >= numbers.n-1
-  WHERE Dice.JobTitle LIKE '%${title}%'
+  WHERE Dice.JOB_TITLE LIKE '%${title}%'
   GROUP BY skill
   ORDER BY count(*) desc
   LIMIT 10)
