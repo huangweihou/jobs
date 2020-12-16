@@ -152,21 +152,20 @@ function getPopularLocations(req, res) {
 // Get top skills related to input job title
 function getTopSkills(req, res) {
   var title = req.params.state;
-  console.log(title);
+  console.log(title)
   var query = `
   WITH SKILLS AS (SELECT count(*) AS count,
-  TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(Dice.sector, ',', numbers.n), ',', -1)) skill
+  TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(d.sector, ',', numbers.n), ',', -1)) AS skill
   FROM
   (select 1 n union all
    select 2 union all select 3 union all
-   select 4 union all select 5) numbers INNER JOIN Dice
-  ON CHAR_LENGTH(Dice.sector)
-     -CHAR_LENGTH(REPLACE(Dice.sector, ', ','')) >= numbers.n-1
-  WHERE Dice.JOB_TITLE LIKE '%${title}%'
+   select 4 union all select 5) numbers INNER JOIN (SELECT * FROM Dice WHERE JOB_TITLE LIKE '%${title}') d
+  ON CHAR_LENGTH(d.sector)
+     -CHAR_LENGTH(REPLACE(d.sector, ', ','')) >= numbers.n-1
   GROUP BY skill
   ORDER BY count(*) desc
   LIMIT 10)
-  SELECT skill AS skill FROM SKILLS WHERE skill<>''
+  SELECT * FROM SKILLS WHERE skill<>''
   `;
 
   connection.query(query, function (err, rows, fields) {
