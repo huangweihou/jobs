@@ -1,5 +1,6 @@
 .job-search-container {
   margin: 20px;
+  text-align: center;
 }
 
 .job-title-input-box {
@@ -9,13 +10,22 @@
 }
 
 .filter-box-container {
+  text-align: center;
   display: flex;
-  margin-left: 20px;
-  margin-right: 20px;
   margin-top: 20px;
   align-items: center;
   background-color: rgba(236, 236, 236, 0.5);
-  width: 100vh;
+  width: 100%;
+}
+
+.input {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.location-employer-skill-input {
+  display: flex;
 }
 
 .location-input {
@@ -40,30 +50,14 @@
   margin: 10px;
 }
 
-.salary-input {
-  padding: 10px;
-}
-
-.salary-min-input {
-  margin: 10px;
-
-  display: flex;
-}
-
-.salary-max-input {
-  margin: 10px;
-
-  display: flex;
-}
-
-.salary-min-max-input {
-  display: flex;
-}
-
 .submit-button {
   margin-left: 20px;
+  margin-right: 20px;
   padding: 10px;
   border: 1px solid black;
   height: 100%;
   cursor: pointer;
+}
+
+.checkbox {
 }

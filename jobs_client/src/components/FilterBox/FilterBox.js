@@ -112,74 +112,79 @@ const FilterBox = (props) => {
         </div>
       </div>
       <div className="filter-box-container">
-        <div className="location-input">
-          <div>Location: </div>
-          <input
-            type="text"
-            onChange={(e) => {
-              setLocation(e.target.value);
-            }}
-          />
-        </div>
+        <div className="input">
+          <div className="location-employer-skill-input">
+            <div className="location-input">
+              <div>Location </div>
+              <input
+                type="text"
+                onChange={(e) => {
+                  setLocation(e.target.value);
+                }}
+              />
+            </div>
 
-        <div className="employer-input">
-          <div>Employer: </div>
-          <input
-            type="text"
-            onChange={(e) => {
-              setEmployer(e.target.value);
-            }}
-          />
-        </div>
-        <div className="skill-input">
-          <div>Skill: </div>
-          <input
-            type="text"
-            onChange={(e) => {
-              setSkill(e.target.value);
-            }}
-          />
-        </div>
-        <div className="job-input">
-          <div>Job type: </div>
-          <div className="job-type-input">
-            <div>
+            <div className="employer-input">
+              <div>Employer </div>
               <input
-                type="checkbox"
-                onChange={() =>
-                  setJobType([!jobType[0], jobType[1], jobType[2]])
-                }
+                type="text"
+                onChange={(e) => {
+                  setEmployer(e.target.value);
+                }}
               />
-              <label>full-time</label>
             </div>
-            <div>
+            <div className="skill-input">
+              <div>Skill </div>
               <input
-                type="checkbox"
-                onChange={() =>
-                  setJobType([jobType[0], !jobType[1], jobType[2]])
-                }
+                type="text"
+                onChange={(e) => {
+                  setSkill(e.target.value);
+                }}
               />
-              <label>part-time</label>
-            </div>
-            <div>
-              <input
-                type="checkbox"
-                onChange={() =>
-                  setJobType([jobType[0], jobType[1], !jobType[2]])
-                }
-              />
-              <label>intern</label>
             </div>
           </div>
-        </div>
-        <div
-          className="submit-button"
-          onClick={() => {
-            filterFetch();
-            console.log("submitted");
-          }}
-        >
-          Submit
+          <div className="job-input">
+            <div>Job type </div>
+            <div className="job-type-input">
+              <div className="checkbox">
+                <input
+                  type="checkbox"
+                  onChange={() =>
+                    setJobType([!jobType[0], jobType[1], jobType[2]])
+                  }
+                />
+                <label>full-time</label>
+              </div>
+              <div className="checkbox">
+                <input
+                  type="checkbox"
+                  onChange={() =>
+                    setJobType([jobType[0], !jobType[1], jobType[2]])
+                  }
+                />
+                <label>part-time</label>
+              </div>
+              <div className="checkbox">
+                <input
+                  type="checkbox"
+                  onChange={() =>
+                    setJobType([jobType[0], jobType[1], !jobType[2]])
+                  }
+                />
+                <label>intern</label>
+              </div>
+            </div>
+          </div>
+
+          <div
+            className="submit-button"
+            onClick={() => {
+              filterFetch();
+              console.log("submitted");
+            }}
+          >
+            Submit
+          </div>
         </div>
       </div>
     </div>
