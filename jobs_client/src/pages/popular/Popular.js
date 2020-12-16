@@ -66,16 +66,16 @@ export default class Popular extends React.Component {
 
 	/* ---- Popular Skill By Job Title ---- */
 	submitTopSkills() {
+		console.log(this.state.selectedTitle)
 		fetch("http://localhost:8081/popular/topskills/" + this.state.selectedTitle, {
 			method: "GET", // The type of HTTP request.
 		  })
 			.then(res => res.json()) // Convert the response data to a JSON.
 			.then(topSkillsList => {
-				console.log("topskill")
 			  if (!topSkillsList) return;
 			  console.log(topSkillsList)
 			  let topSkillsDivs = topSkillsList.map((topSkillsObj, i) => 
-			  	<div key={i}>{topSkillsObj.skill}</div>
+			  <PopularRow key={i} location = {topSkillsObj.skill} count = {topSkillsObj.count} />
 			  );
 			  this.setState({
 				topSkills: topSkillsDivs,
@@ -118,19 +118,20 @@ export default class Popular extends React.Component {
 							Ｗhat Kind Of Job Are You Looking For? 
 			    			<input type='text' placeholder="Enter..." value={this.state.selectedTitle} onChange={this.handleTitleChange} id="jobName" className="movie-input"/>
 			    			<button id="jobSubmitBtn" className="submit-btn" onClick={this.submitTopSkills}>submit</button>
+
+			        		<div className="movies-container">
 							<div className="movie">
-								<p></p>
-								<p></p>
-								<p></p>
-			            <div className="header"><strong>Top 10 Skills For Job Related To: {this.state.selectedTitle}</strong></div>
-			          </div>
-			          <div>
-			            {this.state.topSkills}
-			          </div>
-			          </div>
-			        </div>
-			      </div>
-			    </div>
+			            		<div className="header"><strong>Top 10 Skills For Job Related To: {this.state.selectedTitle}</strong></div>
+			            		<div className="header"><strong>Numbers of Jobs That Require This Skill</strong></div>
+								</div>
+								<div className="movies-container" id="results">
+									{this.state.topSkills}
+								</div>
+			          		</div>
+			        	</div>
+			    	</div>
+				</div>
+	    	</div>
 
 
 				<div className="container bestgenres-container">
