@@ -5,7 +5,7 @@ const JobContent = (props) => {
   const { selectedJob } = props;
   return (
     <div className="job-detail-container">
-      {selectedJob ? <h2>JobTitle:</h2> : null}
+      {selectedJob ? <h2>Job Title:</h2> : null}
       <h3 className="content">
         {selectedJob ? selectedJob["JobTitle"] : null}
       </h3>
