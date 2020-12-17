@@ -111,7 +111,7 @@ export default class Popular extends React.Component {
 
 				<div className="container bestgenres-container">
 			      <div className="jumbotron">
-			        <div className="h5">TOP 10 SKILLS THAT YOU MAY NEED</div>
+			        <div className="title">TOP 10 SKILLS THAT YOU MAY NEED</div>
 
 			        <div className="years-container">
 						<div className="input-container">
@@ -136,7 +136,7 @@ export default class Popular extends React.Component {
 
 				<div className="container bestgenres-container">
 			      <div className="jumbotron">
-			        <div className="h5">TOP 100 SKILLS THAT EMPLOYERS ARE LOOKING FOR</div>
+			        <div className="title">TOP 100 SKILLS THAT EMPLOYERS ARE LOOKING FOR</div>
 
 			        <div className="years-container">
 			          <div className="dropdown-container">
@@ -150,19 +150,20 @@ export default class Popular extends React.Component {
 							Do You Have A Prefered State? 
 			    			<input type='text' placeholder="Enter State Abbreviation" value={this.state.selectedState} onChange={this.handleStateChange} id="movieName" className="movie-input"/>
 			    			<button id="decadesSubmitBtn" className="submit-btn" onClick={this.submitSkill}>submit</button>
-			    		</div>
-			          </div>
-			        </div>
+
 			      </div>
 			      <div className="jumbotron">
 			        <div className="movies-container">
 			          <div className="movie">
 			            <div className="header"><strong>Top 10 Locations</strong></div>
 			            <div className="header"><strong>Number of Jobs That Match Skill: {this.state.selectedSkill}</strong></div>
+			          	</div>
+			          	<div className="movies-container" id="results">
+			            	{this.state.locations}
+			          	</div>
+						  </div>
 			          </div>
-			          <div className="movies-container" id="results">
-			            {this.state.locations}
-			          </div>
+			        </div>
 			        </div>
 			      </div>
 			    </div>
