@@ -14,11 +14,13 @@
   display: flex;
   margin-top: 20px;
   align-items: center;
-  background-color: rgba(236, 236, 236, 0.5);
+  color: #ffffff;
+  background-color: rgb(201, 67, 67);
   width: 100%;
 }
 
 .input {
+  color: #ffffff;
   margin: 0 auto;
   display: flex;
   align-items: center;
